@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Platform Streaming Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0f0f1a;
+            color: #f0f0f0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(15, 15, 26, 0.95);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff4a4a;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #4a6aff;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #4a6aff;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-login {
+            color: #f0f0f0;
+            border: 1px solid #4a6aff;
+        }
+        
+        .btn-login:hover {
+            background-color: #4a6aff;
+        }
+        
+        .btn-signup {
+            background-color: #ff4a4a;
+            color: white;
+        }
+        
+        .btn-signup:hover {
+            background-color: #ff3030;
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, rgba(74, 106, 255, 0.1), rgba(15, 15, 26, 0.9)), 
+                        url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1925&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #b0b0c0;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .btn-primary {
+            background-color: #4a6aff;
+            color: white;
+            padding: 15px 35px;
+            font-size: 18px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3151ff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(74, 106, 255, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: #f0f0f0;
+            border: 1px solid #4a6aff;
+            padding: 15px 35px;
+            font-size: 18px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(74, 106, 255, 0.1);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #b0b0c0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: #1a1a2e;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            color: #4a6aff;
+            margin-bottom: 25px;
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #b0b0c0;
+        }
+        
+        /* Content Preview */
+        .content-preview {
+            padding: 80px 0;
+            background-color: #1a1a2e;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .content-item {
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .content-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .content-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .content-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 20px;
+            color: white;
+        }
+        
+        .content-overlay h4 {
+            margin-bottom: 5px;
+        }
+        
+        .content-overlay span {
+            color: #b0b0c0;
+            font-size: 14px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 74, 74, 0.1), rgba(15, 15, 26, 0.9)),
+                        url('https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1925&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .cta h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #b0b0c0;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #0a0a12;
+            padding: 60px 0 30px;
+            border-top: 1px solid #2a2a3a;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: #4a6aff;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #b0b0c0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #4a6aff;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2a2a3a;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .warning {
+            background-color: rgba(255, 74, 74, 0.1);
+            border-left: 4px solid #ff4a4a;
+            padding: 15px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .section-title h2 {
+                font-size: 30px;
+            }
+            
+            .cta h2 {
+                font-size: 32px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Stream<span>Flix</span></a>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#features">Fitur</a></li>
+                    <li><a href="#content">Konten</a></li>
+                    <li><a href="#pricing">Harga</a></li>
+                </ul>
+            </nav>
+            
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-login">Masuk</a>
+                <a href="#" class="btn btn-signup">Daftar Gratis</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Platform Streaming Premium Terbaik</h1>
+            <p>Nikmati ribuan jam konten berkualitas tinggi dengan akses tak terbatas ke koleksi film, serial, dan video eksklusif kami.</p>
+            
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">Mulai Menonton Sekarang</a>
+                <a href="#" class="btn btn-secondary">Pelajari Lebih Lanjut</a>
+            </div>
+            
+            <div class="warning">
+                <p><i class="fas fa-exclamation-triangle"></i> Hanya untuk pengguna berusia 18 tahun ke atas. Konten kami diatur sesuai dengan peraturan lokal dan internasional.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mengapa Memilih StreamFlix?</h2>
+                <p>Platform streaming yang dirancang untuk memberikan pengalaman menonton terbaik</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Konten Berkualitas Tinggi</h3>
+                    <p>Nikmati konten dalam resolusi 4K UHD dengan audio surround untuk pengalaman sinematik.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Akses Multi Perangkat</h3>
+                    <p>Tonton di smartphone, tablet, laptop, atau TV pintar Anda kapan saja, di mana saja.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Privasi Terjamin</h3>
+                    <p>Data dan aktivitas menonton Anda dilindungi dengan enkripsi tingkat tinggi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Preview -->
+    <section class="content-preview" id="content">
+        <div class="container">
+            <div class="section-title">
+                <h2>Koleksi Konten Eksklusif</h2>
+                <p>Jelajahi berbagai kategori yang menarik dan selalu diperbarui</p>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-item">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Film Action">
+                    <div class="content-overlay">
+                        <h4>Film Action Terbaru</h4>
+                        <span>2.5 jam • 18+</span>
+                    </div>
+                </div>
+                
+                <div class="content-item">
+                    <img src="https://images.unsplash.com/photo-1543536448-d209d2d13a1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Drama Series">
+                    <div class="content-overlay">
+                        <h4>Serial Drama Populer</h4>
+                        <span>10 episode • 18+</span>
+                    </div>
+                </div>
+                
+                <div class="content-item">
+                    <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sci-Fi">
+                    <div class="content-overlay">
+                        <h4>Fiksi Ilmiah</h4>
+                        <span>1.8 jam • 18+</span>
+                    </div>
+                </div>
+                
+                <div class="content-item">
+                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Documentary">
+                    <div class="content-overlay">
+                        <h4>Dokumenter Eksklusif</h4>
+                        <span>45 menit • 18+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="pricing">
+        <div class="container">
+            <h2>Siap Memulai Pengalaman Streaming?</h2>
+            <p>Bergabunglah dengan jutaan pengguna yang telah memilih StreamFlix sebagai platform streaming favorit mereka. Uji coba gratis 7 hari!</p>
+            <a href="#" class="btn btn-primary" style="font-size: 20px; padding: 18px 45px;">Daftar Sekarang - Gratis 7 Hari</a>
+            
+            <div class="warning" style="margin-top: 40px;">
+                <p><i class="fas fa-info-circle"></i> Dengan mendaftar, Anda menyetujui Syarat & Ketentuan kami dan mengkonfirmasi bahwa Anda berusia 18 tahun atau lebih.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>StreamFlix</h3>
+                    <p>Platform streaming premium dengan konten berkualitas tinggi untuk pengalaman menonton terbaik.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Tautan Cepat</h3>
+                    <ul>
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#features">Fitur</a></li>
+                        <li><a href="#content">Konten</a></li>
+                        <li><a href="#pricing">Harga</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Bantuan</h3>
+                    <ul>
+                        <li><a href="#">Pusat Bantuan</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat Penggunaan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontak</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-envelope"></i> support@streamflix.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +62 21 1234 5678</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 StreamFlix. Semua hak dilindungi undang-undang. Hanya untuk pengguna berusia 18 tahun ke atas.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(10, 10, 18, 0.95)';
+            } else {
+                header.style.backgroundColor = 'rgba(15, 15, 26, 0.95)';
+            }
+        });
+        
+        // Age verification simulation
+        document.querySelector('.btn-signup').addEventListener('click', function(e) {
+            e.preventDefault();
+            const isAdult = confirm("Dengan mengklik OK, Anda menyatakan bahwa Anda berusia 18 tahun atau lebih.");
+            
+            if(isAdult) {
+                alert("Pengalaman streaming yang luar biasa menanti Anda! Silakan lengkapi pendaftaran.");
+                // In a real scenario, this would redirect to signup page
+                // window.location.href = "/signup";
+            } else {
+                alert("Maaf, Anda harus berusia 18 tahun atau lebih untuk mengakses konten kami.");
+            }
+        });
+    </script>
+</body>
+  </html>
